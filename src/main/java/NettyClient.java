@@ -14,6 +14,9 @@ import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 
 public class NettyClient {
+
+    private static String server = "172.21.14.64";
+
     public static void main(String[] args) {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
@@ -28,7 +31,7 @@ public class NettyClient {
                         }
 
                     });
-            ChannelFuture f = bootstrap.connect("127.0.0.1", 8888).sync();
+            ChannelFuture f = bootstrap.connect(server, 8888).sync();
             System.out.println("客户端启动");
             f.channel().closeFuture().sync();
         } catch (Exception e) {
