@@ -77,7 +77,10 @@ public class NettyServer {
                 channelGroup.add(ctx.channel());
                 super.channelRegistered(ctx);
                 connectedNum ++;
-            } else System.out.println("已达到连接上限");
+            } else {
+                ctx.channel().writeAndFlush("已达到连接上限");
+//                System.out.println("已达到连接上限");
+            }
         }
 
         @Override
