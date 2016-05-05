@@ -13,16 +13,34 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.internal.SystemPropertyUtil;
+
+import java.awt.*;
+import java.util.HashMap;
 
 public class NettyServer {
 
-    private static int MaxConnection = 3;
+    private static int MaxConnection = 999;
 
     private static int connectedNum;
 
     private static volatile ChannelGroup channelGroup;
 
     public static void main(String[] args) throws InterruptedException {
+        final int[] colors = new int[11];
+        colors[0] = 0xFF000000;
+        colors[1] = 0xFF444444;
+        colors[2] = 0xFF888888;
+        colors[3] = 0xFFCCCCCC;
+        colors[4] = 0xFFFFFFFF;
+        colors[5] = 0xFFFF0000;
+        colors[6] = 0xFF00FF00;
+        colors[7] = 0xFF0000FF;
+        colors[8] = 0xFFFFFF00;
+        colors[9] = 0xFF00FFFF;
+        colors[10] = 0xFFFF0000;
+
+
         NioEventLoopGroup parent = new NioEventLoopGroup(1);
         NioEventLoopGroup child = new NioEventLoopGroup();
         try {
@@ -50,9 +68,12 @@ public class NettyServer {
                         System.out.println("启动模拟任务");
                         int i = 0;
                         while (true) {
-                            channelGroup.writeAndFlush(String.valueOf(i++)).sync();
-                            System.out.println("发送" + i);
-                            Thread.sleep(500);
+//                        for (int j = 0; j < 100; j++) {
+//                            channelGroup.writeAndFlush(String.valueOf(i++)).sync();
+                            if (i >= 11) i = 0;
+                            channelGroup.writeAndFlush(String.valueOf(colors[i]) + "," + String.valueOf(200)).sync();
+                            System.out.println("发送" + i++);
+                            Thread.sleep(5000);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
