@@ -70,10 +70,12 @@ public class NettyServer {
                         while (true) {
 //                        for (int j = 0; j < 100; j++) {
 //                            channelGroup.writeAndFlush(String.valueOf(i++)).sync();
-                            if (i >= 11) i = 0;
-                            channelGroup.writeAndFlush(String.valueOf(colors[i]) + "," + String.valueOf(200)).sync();
-                            System.out.println("发送" + i++);
-                            Thread.sleep(5000);
+                            //f (i >= 11) i = 0;
+                            channelGroup.writeAndFlush(String.valueOf(i++) + "," + String.valueOf(100)).sync();
+                            System.out.println("发送" + i);
+                            //channelGroup.writeAndFlush(String.valueOf(colors[i]) + "," + String.valueOf(100)).sync();
+                            //System.out.println("发送" + i++);
+                            Thread.sleep(10);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
